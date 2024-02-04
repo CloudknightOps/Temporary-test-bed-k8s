@@ -3,8 +3,8 @@
 *.tfstate.*
 terraform.tfvars
 
-# .terraform directory
 .terraform/
+.terraform.lock.hcl
 
 # Crash log files
 crash.log
