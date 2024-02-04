@@ -1,0 +1,14 @@
+# Terraform configuration files
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+
+# .terraform directory
+.terraform/
+
+# Crash log files
+crash.log
+
+# Exclude sensitive information
+.terraformrc
+terraform.rc

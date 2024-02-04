@@ -1,0 +1,30 @@
+--- 
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: Testbed
+  region: us-east-1
+  version: "1.29"
+availabilityZones:
+- us-east-1a
+- us-east-1b
+- us-east-1c
+- us-east-1d
+managedNodeGroups:
+- name: Testbed
+  privateNetworking: true
+  instanceType: t3.medium
+  desiredCapacity: 1
+- name: spot
+  privateNetworking: true
+  instanceType: t3.medium
+  spot: true
+  desiredCapacity: 1
+  labels:
+    role: spot
+  taints:
+  - key: spot
+    value: "true"
+    effect: NoSchedule
+
+

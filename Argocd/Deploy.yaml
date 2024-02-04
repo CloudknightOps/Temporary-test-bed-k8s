@@ -1,0 +1,52 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: webapp-review
+  namespace: argocd
+spec:
+  generators:
+  - matrix:
+      generators:
+      - pullRequest:
+          github:
+            
+            owner: CloudKnightOps
+            repo: argocd-course-webapp
+            labels:
+            - preview
+          requeueAfterSeconds: 90
+      - list:
+          elements:
+          - url: https://github.com/mabusaa/argocd-course-webapp.git
+            path: helm/webapp
+  - matrix:
+      generators:
+      - pullRequest:
+          github:
+            # The GitHub organization or user.
+            owner: mabusaa
+            # The Github repository
+            repo: argocd-example-apps
+            labels:
+            - preview
+          requeueAfterSeconds: 90
+      - list:
+          elements:
+          - url: https://github.com/mabusaa/argocd-example-apps.git
+            path: guestbook
+  template:
+      metadata:
+        name: 'webapp-{{branch}}-{{number}}'
+        namespace: argocd
+      spec:
+        source:
+          repoURL: '{{ url }}'
+          targetRevision: '{{head_sha}}'
+          path: '{{ path }}'
+        project: "default"
+        destination:
+          server: https://kubernetes.default.svc
+          namespace: webapp-{{branch}}-{{number}}
+        syncPolicy:
+          syncOptions:
+            - CreateNamespace=true
