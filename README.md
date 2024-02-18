@@ -1,6 +1,7 @@
 # Temporary-test-bed-k8s
 This repo holds the terraform files for building EKS cluster On AWS for the On-demand TestBed Project on Kubernetes 
 
+![Architecture-diagram](Pull-Req-Gen.png)
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
